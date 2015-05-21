@@ -1,0 +1,46 @@
+name: "example stat rule"
+es_host: elasticsearch.example.com
+es_port: 14900
+type: "elastalert_modules.stat_rule.StatRule"
+
+# (Required)
+index: logstash-*
+
+# (Required)
+timeframe:
+  hours: 1 
+
+# (Required)
+threshold: 300
+
+# (Required)
+stat: "sum"
+
+# (Required)
+stat_field: "request_time"
+
+group_by: "host"
+
+# (Required)
+stat_type: "less"
+
+# (Required)
+include:
+    - "request_time"
+    - "host"
+
+filter:
+- query:
+    query_string:
+        query: "document_type:nginx_access"
+
+# (Required)
+# The alert is use when a match is found
+alert:
+- "email"
+
+# (required, email specific)
+# a list of email addresses to send alerts to
+email:
+    - "elastalert@example.com"
+
