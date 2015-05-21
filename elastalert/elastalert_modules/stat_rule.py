@@ -9,7 +9,7 @@ from util import dt_to_ts
 
 class StatRule(RuleType):
     '''support
-       stat function in (count, sum)
+       stat function in (sum, )
        stat_type in (greater, less, equal)
     '''
     required_options = set(['stat', 'threshold', 'stat_type'])
@@ -17,7 +17,6 @@ class StatRule(RuleType):
     def __init__(self, *args):
         super(StatRule, self).__init__(*args)
         self.stat_function = {
-                'count':self._len,
                 'sum':self._sum,
                 }
 
@@ -34,9 +33,6 @@ class StatRule(RuleType):
         self.stat = self.rules['stat']
         self.stat_type = self.rules['stat_type']
         self.match_value = []
-
-    def _len(self, data):
-        return len(data)
 
     def _sum(self, data):
         return sum([d[self.stat_field] for d in data])
