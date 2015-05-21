@@ -9,7 +9,7 @@ from util import dt_to_ts
 
 class StatRule(RuleType):
     '''support
-       aggregation in (count, sum)
+       stat function in (count, sum)
        stat_type in (greater, less, equal)
     '''
     required_options = set(['stat', 'threshold', 'stat_type'])
